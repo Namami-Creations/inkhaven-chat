@@ -1,0 +1,30 @@
+# Code owners for automatic review assignment
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Global owners
+* @your-username
+
+# Frontend components
+/components/ @your-username
+/app/ @your-username
+
+# API routes
+/app/api/ @your-username
+
+# Configuration files
+*.config.js @your-username
+*.config.ts @your-username
+next.config.js @your-username
+
+# Testing
+/__tests__/ @your-username
+/cypress/ @your-username
+jest.config.js @your-username
+cypress.config.ts @your-username
+
+# CI/CD
+/.github/ @your-username
+
+# Documentation
+README.md @your-username
+/docs/ @your-username
