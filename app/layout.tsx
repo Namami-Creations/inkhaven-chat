@@ -4,6 +4,7 @@ import { SupabaseProvider } from '@/components/SupabaseProvider'
 import ErrorBoundary from '@/components/ErrorBoundary'
 import SkipNavigation from '@/components/SkipNavigation'
 import ToastContainer from '@/components/ToastContainer'
+import { Analytics } from '@vercel/analytics/next'
 import '../lib/i18n' // Initialize i18n
 
 export const metadata: Metadata = {
@@ -45,6 +46,7 @@ export default function RootLayout({
             <ToastContainer />
           </SupabaseProvider>
         </ErrorBoundary>
+        <Analytics />
       </body>
     </html>
   )
