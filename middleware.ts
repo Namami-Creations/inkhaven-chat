@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { logAPI } from '@/lib/logger'
+import { logAPI } from '@/lib/logger-edge'
 
 // Enhanced security headers
 const securityHeaders = {
@@ -10,7 +10,7 @@ const securityHeaders = {
     // Default to self
     "default-src 'self'",
     // Allow scripts from self and trusted sources
-    "script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com",
+    "script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://www.paypal.com https://*.paypal.com https://*.paypalobjects.com",
     // Allow styles from self and trusted sources
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     // Allow fonts from trusted sources
@@ -18,9 +18,9 @@ const securityHeaders = {
     // Allow images from self, data URIs, and HTTPS sources
     "img-src 'self' data: https: blob:",
     // Allow connections to self and Supabase
-    "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.openai.com https://generativelanguage.googleapis.com https://*.googleapis.com https://www.google-analytics.com https://www.googletagmanager.com",
-    // Block all frames
-    "frame-src 'none'",
+    "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.openai.com https://generativelanguage.googleapis.com https://*.googleapis.com https://www.google-analytics.com https://www.googletagmanager.com https://www.paypal.com https://*.paypal.com https://api-m.paypal.com https://api-m.sandbox.paypal.com https://*.paypalobjects.com",
+    // Allow PayPal frames
+    "frame-src https://www.paypal.com https://*.paypal.com https://*.paypalobjects.com",
     // Block object/embed/applet
     "object-src 'none'",
     // Restrict base URI

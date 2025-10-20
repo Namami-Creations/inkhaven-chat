@@ -14,7 +14,8 @@
         "cypress": "cypress open",
         "cypress:run": "cypress run",
         "type-check": "tsc --noEmit",
-        "clean": "rm -rf .next out node_modules/.cache"
+        "clean": "rm -rf .next out node_modules/.cache",
+        "prepare": "husky install"
     },
     "dependencies": {
         "@supabase/supabase-js": "^2.45.4",
@@ -67,24 +68,8 @@
         "husky": "^9.1.6",
         "lint-staged": "^15.2.10"
     },
-    "jest": {
-        "setupFilesAfterEnv": ["<rootDir>/__tests__/setup.ts"],
-        "testEnvironment": "jsdom",
-        "testPathIgnorePatterns": ["<rootDir>/.next/", "<rootDir>/node_modules/"],
-        "moduleNameMapping": {
-            "^@/(.*)$": "<rootDir>/$1",
-            "^@/components/(.*)$": "<rootDir>/components/$1",
-            "^@/lib/(.*)$": "<rootDir>/lib/$1",
-            "^@/utils/(.*)$": "<rootDir>/utils/$1",
-            "^@/app/(.*)$": "<rootDir>/app/$1"
-        },
-        "collectCoverageFrom": [
-            "**/*.{ts,tsx}",
-            "!**/*.d.ts",
-            "!**/node_modules/**",
-            "!**/.next/**",
-            "!**/coverage/**"
-        ],
-        "coverageReporters": ["text", "lcov", "html"],
-        "coverageDirectory": "coverage"
+    "lint-staged": {
+      "*.{js,ts,tsx}": "eslint --fix",
+      "*.{ts,tsx}": "jest --bail --findRelatedTests"
     }
+}

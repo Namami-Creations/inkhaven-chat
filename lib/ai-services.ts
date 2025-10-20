@@ -1,4 +1,5 @@
 // AI Services Configuration - All Free Tier
+// Enhanced with self-healing capabilities using executeWithRetryAndFallback from ai-fallback.ts
 export const AI_SERVICES = {
   moderation: [
     'huggingface/moderation-check',  // Free

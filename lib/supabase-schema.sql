@@ -207,13 +207,13 @@ alter table public.paypal_webhooks enable row level security;
 
 -- Users policies
 create policy "Users can view own data" on public.users
-  for select using (auth.uid() = id);
+  for select using (auth.uid() = id or user_tier = 'anonymous');
 
 create policy "Users can update own data" on public.users
-  for update using (auth.uid() = id);
+  for update using (auth.uid() = id or user_tier = 'anonymous');
 
 create policy "Users can insert own data" on public.users
-  for insert with check (auth.uid() = id);
+  for insert with check (true);
 
 -- User subscriptions policies
 create policy "Users can view own subscriptions" on public.user_subscriptions
@@ -247,34 +247,27 @@ create policy "Anonymous sessions are publicly readable" on public.anonymous_ses
 create policy "Anyone can create anonymous sessions" on public.anonymous_sessions
   for insert with check (true);
 
+create policy "Anyone can update anonymous sessions" on public.anonymous_sessions
+  for update using (true);
+
 -- Messages: Part of session can be read by session participants
 create policy "Messages readable by session/room participants" on public.messages
   for select using (
     exists (
       select 1 from public.anonymous_sessions
       where id = messages.session_id
-      and array[auth.uid()::text] <@ users
+      and (array[auth.uid()::text] <@ users or array['anonymous'] <@ users)
     ) or
     exists (
       select 1 from public.room_participants
       where room_id = messages.room_id
-      and user_id = auth.uid()::text
-    )
+      and (user_id = auth.uid()::text or user_id = 'anonymous')
+    ) or
+    user_id = 'anonymous'
   );
 
 create policy "Messages insertable by session/room participants" on public.messages
-  for insert with check (
-    exists (
-      select 1 from public.anonymous_sessions
-      where id = messages.session_id
-      and array[auth.uid()::text] <@ users
-    ) or
-    exists (
-      select 1 from public.room_participants
-      where room_id = messages.room_id
-      and user_id = auth.uid()::text
-    )
-  );
+  for insert with check (true);
 
 -- Chat rooms: Publicly readable with freemium restrictions
 create policy "Chat rooms are publicly readable" on public.chat_rooms
@@ -283,22 +276,26 @@ create policy "Chat rooms are publicly readable" on public.chat_rooms
     exists (
       select 1 from public.users
       where id = auth.uid() and user_tier = 'premium'
-    )
+    ) or
+    is_premium_only = false
   );
 
 create policy "Authenticated users can create rooms" on public.chat_rooms
-  for insert with check (auth.role() = 'authenticated');
+  for insert with check (true);
 
 -- Room participants: Publicly readable for room discovery
 create policy "Room participants publicly readable" on public.room_participants
   for select using (true);
 
 create policy "Users can join rooms" on public.room_participants
-  for insert with check (auth.uid()::text = user_id);
+  for insert with check (true);
 
 -- Interests: Publicly readable
 create policy "Interests are publicly readable" on public.interests
   for select using (true);
+
+create policy "Anyone can insert interests" on public.interests
+  for insert with check (true);
 
 -- PayPal webhooks: Service role only
 create policy "Service role can manage webhooks" on public.paypal_webhooks

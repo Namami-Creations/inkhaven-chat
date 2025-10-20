@@ -8,13 +8,12 @@ const nextConfig = {
 
   // Image optimization
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'www.inkhaven.in', 'emaznvqnynfgudlazzqz.supabase.co'],
     formats: ['image/webp', 'image/avif'], // Modern formats for better compression
   },
 
   // Experimental features for performance
   experimental: {
-    optimizeCss: true, // Optimize CSS
     scrollRestoration: true, // Better UX on navigation
   },
 
@@ -54,8 +53,8 @@ const nextConfig = {
 
   // Environment variables exposure
   env: {
-    SUPABASE_URL: process.env.SUPABASE_URL,
-    SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
   },
 }
 
