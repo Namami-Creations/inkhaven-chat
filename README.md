@@ -115,6 +115,7 @@ Inkhaven Chat supports **25+ languages** including all major Indian languages an
 git clone <repository-url>
 cd inkhaven-chat
 ```
+<!-- Fresh commit for deployment -->
 
 2. **Install dependencies**
 ```bash
