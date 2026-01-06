@@ -5,16 +5,17 @@ import { canAccessFeature, type Feature } from '@/lib/feature-gate'
 import type { User } from '@/types/user'
 
 export function useFeatureAccess(feature: Feature): boolean {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
+    if (status === 'loading') return // Still loading
     if ((session?.user as any)?.id) {
       getUserProfile((session?.user as any).id).then(setUser)
     } else {
       setUser(null)
     }
-  }, [session])
+  }, [session, status])
 
   return canAccessFeature(user, feature)
 }
