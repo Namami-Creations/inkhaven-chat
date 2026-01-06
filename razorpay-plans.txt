@@ -1,0 +1,7 @@
+# Razorpay Plan IDs (Created: 2025-12-27T08:33:02.745Z)
+RAZORPAY_PREMIUM_MONTHLY_PLAN_ID=plan_RwZTGaAQRTVQNL
+RAZORPAY_PREMIUM_YEARLY_PLAN_ID=plan_RwZTHiBDXo7BXk
+
+# Plan Details:
+# Monthly: ₹410/month (₹165 first month promo)
+# Yearly: ₹4,099/year (Save ₹998 - 2 months FREE)

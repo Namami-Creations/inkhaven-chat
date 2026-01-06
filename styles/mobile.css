@@ -1,0 +1,257 @@
+/* Mobile-First Responsive Styles for Chat Interface */
+
+/* Touch optimization */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+/* Keyboard visibility handling */
+.keyboard-visible {
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile browsers */
+}
+
+/* Safe area handling for devices with notches */
+.pb-safe-area-inset-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 1rem);
+}
+
+/* Smooth animations under 300ms */
+.transition-fast {
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-bounce {
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Mobile-optimized scrolling */
+.mobile-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Touch feedback */
+.touch-feedback {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.touch-feedback:active {
+  transform: scale(0.98);
+  transition: transform 100ms ease-out;
+}
+
+/* Mobile button optimization */
+.mobile-button {
+  min-height: 44px; /* iOS minimum touch target */
+  min-width: 44px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 16px; /* Prevents zoom on iOS */
+  line-height: 1.2;
+}
+
+/* Mobile input optimization */
+.mobile-input {
+  font-size: 16px; /* Prevents zoom on iOS */
+  border-radius: 12px;
+  padding: 12px 16px;
+  min-height: 44px;
+}
+
+/* Gesture indicators */
+.swipe-indicator {
+  position: relative;
+}
+
+.swipe-indicator::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.swipe-indicator:hover::before {
+  opacity: 1;
+}
+
+/* Mobile menu animations */
+.mobile-menu-enter {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.mobile-menu-enter-active {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 250ms ease-out, opacity 200ms ease-out;
+}
+
+.mobile-menu-exit {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.mobile-menu-exit-active {
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 200ms ease-in, opacity 150ms ease-in;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 640px) {
+  /* Mobile-first styles */
+  .chat-container {
+    padding: 0;
+  }
+  
+  .message-bubble {
+    max-width: 85%;
+    margin: 4px 8px;
+  }
+  
+  .chat-header {
+    padding: 8px 16px;
+    min-height: 56px;
+  }
+  
+  .message-input-container {
+    padding: 8px 16px 16px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  /* Tablet styles */
+  .message-bubble {
+    max-width: 75%;
+  }
+  
+  .chat-header {
+    padding: 12px 24px;
+  }
+  
+  .message-input-container {
+    padding: 12px 24px 20px;
+  }
+}
+
+@media (min-width: 769px) {
+  /* Desktop styles */
+  .mobile-menu {
+    display: none !important;
+  }
+  
+  .swipe-indicator::before {
+    display: none;
+  }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  .touch-feedback {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .swipe-indicator::before {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .transition-fast,
+  .transition-bounce,
+  .mobile-menu-enter-active,
+  .mobile-menu-exit-active {
+    transition: none;
+  }
+  
+  .touch-feedback:active {
+    transform: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .mobile-button {
+    border: 2px solid currentColor;
+  }
+  
+  .swipe-indicator::before {
+    background: currentColor;
+    opacity: 0.8;
+  }
+}
+
+/* Landscape orientation optimizations */
+@media (orientation: landscape) and (max-height: 500px) {
+  .chat-header {
+    min-height: 48px;
+    padding: 6px 16px;
+  }
+  
+  .mobile-menu {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+}
+
+/* PWA display mode optimizations */
+@media (display-mode: standalone) {
+  .chat-container {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+  
+  .mobile-menu {
+    top: env(safe-area-inset-top, 0);
+  }
+}
+
+/* Focus management for accessibility */
+.mobile-input:focus,
+.mobile-button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Loading states */
+.loading-shimmer {
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0) 0%, 
+    rgba(255, 255, 255, 0.2) 50%, 
+    rgba(255, 255, 255, 0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Haptic feedback simulation */
+.haptic-light {
+  animation: haptic-pulse 100ms ease-out;
+}
+
+@keyframes haptic-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
