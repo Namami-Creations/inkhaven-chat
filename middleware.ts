@@ -36,7 +36,7 @@ export async function middleware(request: NextRequest) {
   const csp = [
     "default-src 'self'",
     "frame-ancestors 'none'",
-    "script-src 'self' 'unsafe-inline' https://*.vercel-insights.com",
+    "script-src 'self' 'unsafe-inline' https://*.vercel-insights.com https://challenges.cloudflare.com",
     "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.metered.live wss://*.metered.live",
     "img-src 'self' data: blob:",
     "media-src 'self' blob: https://*.supabase.co",
